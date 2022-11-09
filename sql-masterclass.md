@@ -36,7 +36,7 @@ Records: 19245  Duplicates: 0  Warnings: 0
 
 The Entity Relation Diagram of the 'trading' database ( https://dbdiagram.io/embed/608d07e4b29a09603d12edbd ):
 
-<img src="https://github.com/fortunewalla/8weeksqlchallenge/blob/main/trading-erd.jpg"></img>
+<img src="trading-erd.jpg"></img>
 
 The structure of the database:
 
