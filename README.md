@@ -6,10 +6,10 @@ Aim: This repo is for learning SQL from datawithdanny.com and 8weeksqlchallenge.
 
 **8 Week SQL Challenge:**
 
-#1 Danny's Diner: <dannys_diner.md>
+#1 Danny's Diner: [dannys_diner.md](dannys_diner.md)
 
-#2 Pizza Runner: <pizza_runner.md>
+#2 Pizza Runner: [pizza_runner.md](pizza_runner.md)
 
 **SQL Masterclass:**
 
-Crypto Trading <sql-masterclass.md>
+Crypto Trading [sql-masterclass.md](sql-masterclass.md)
