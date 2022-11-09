@@ -1,4 +1,4 @@
-### datawithdanny
+### Cryptocurrency Trading
 
 Aim: To complete the the SQL MasterClass course from datawithdanny.com
 

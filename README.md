@@ -12,4 +12,4 @@ Aim: This repo is for learning SQL from datawithdanny.com and 8weeksqlchallenge.
 
 **SQL Masterclass:**
 
-Crypto Trading [sql-masterclass.md](sql-masterclass.md)
+Cryptocurrency Trading [sql-masterclass.md](sql-masterclass.md)
