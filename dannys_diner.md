@@ -1,5 +1,6 @@
 ### Danny's Diner
 
+
 *Q. How to use this document? A. Read through it line by line.*
 
 **Setup:**
@@ -161,6 +162,23 @@ C 	2021-01-01 	ramen 	12 	N
 C 	2021-01-01 	ramen 	12 	N
 C 	2021-01-07 	ramen 	12 	N
 ```
+| customer_id | order_date | product_name | price | member |
+| - | - | - | - | - | 
+| A | 2021-01-01 | curry | 15 | N |
+| A | 2021-01-01 | sushi | 10 | N |
+| A | 2021-01-07 | curry | 15 | Y |
+| A | 2021-01-10 | ramen | 12 | Y |
+| A | 2021-01-11 | ramen | 12 | Y |
+| A | 2021-01-11 | ramen | 12 | Y |
+| B | 2021-01-01 | curry | 15 | N |
+| B | 2021-01-02 | curry | 15 | N |
+| B | 2021-01-04 | sushi | 10 | N |
+| B | 2021-01-11 | sushi | 10 | Y |
+| B | 2021-01-16 | ramen | 12 | Y |
+| B | 2021-02-01 | ramen | 12 | Y |
+| C | 2021-01-01 | ramen | 12 | N |
+| C | 2021-01-01 | ramen | 12 | N |
+| C | 2021-01-07 | ramen | 12 | N |
 
 Rank All The Things:
 
@@ -186,3 +204,53 @@ C 	2021-01-07 	ramen 	12 	N 	null
 ```
 
 SQL topics relevant to the Danny’s Diner case study: Common Table Expressions, Group By Aggregates, Window Functions for ranking, Table Joins
+
+**Q1. What are the contents of each table?**
+
+**A1.** As seen from the data, there are three menu items. There are two customers. 
+
+```
+mysql> select * from menu;
++------------+--------------+-------+
+| product_id | product_name | price |
++------------+--------------+-------+
+|          1 | sushi        |    10 |
+|          2 | curry        |    15 |
+|          3 | ramen        |    12 |
++------------+--------------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from members;
++-------------+------------+
+| customer_id | join_date  |
++-------------+------------+
+| A           | 2021-01-07 |
+| B           | 2021-01-09 |
++-------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from sales;               
++-------------+------------+------------+ ```
+| customer_id | order_date | product_id | 
++-------------+------------+------------+ 
+| A           | 2021-01-01 |          1 | 
+| A           | 2021-01-01 |          2 | 
+| A           | 2021-01-07 |          2 | 
+| A           | 2021-01-10 |          3 | 
+| A           | 2021-01-11 |          3 | 
+| A           | 2021-01-11 |          3 | 
+| B           | 2021-01-01 |          2 | 
+| B           | 2021-01-02 |          2 | 
+| B           | 2021-01-04 |          1 | 
+| B           | 2021-01-11 |          1 | 
+| B           | 2021-01-16 |          3 | 
+| B           | 2021-02-01 |          3 | 
+| C           | 2021-01-01 |          3 | 
+| C           | 2021-01-01 |          3 | 
+| C           | 2021-01-07 |          3 | 
++-------------+------------+------------+ 
+15 rows in set (0.00 sec)
+```
+
+**Q1.**
+**A1.**
