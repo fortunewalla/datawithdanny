@@ -4,15 +4,17 @@ Aim: This repo is for learning SQL from datawithdanny.com and 8weeksqlchallenge.
 
 *Files updated for MySQL syntax.*
 
+**SQL Masterclass:**
+
+Cryptocurrency Trading [sql-masterclass.md](sql-masterclass.md)
+
+P.S. The original MySQL transactions table is missing txn_date column. This is added via a squery.
+
 **8 Week SQL Challenge:**
 
 #1 Danny's Diner: [dannys_diner.md](dannys_diner.md)
 
 #2 Pizza Runner: [pizza_runner.md](pizza_runner.md)
-
-**SQL Masterclass:**
-
-Cryptocurrency Trading [sql-masterclass.md](sql-masterclass.md)
 
 **Efforts by others:**
 
