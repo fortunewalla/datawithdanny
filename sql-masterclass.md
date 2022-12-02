@@ -22,12 +22,13 @@ ORDER BY txn_year, txn_type;
 
 *  line 226 correction on ticker. Ticker set to 'ETH' previously was 'BTC'
 
+```
 SUM(
     CASE
 +     WHEN ticker = 'ETH' AND txn_type = 'SELL' THEN quantity
       ELSE 0
     END
-
+```
 
 
 
