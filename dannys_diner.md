@@ -187,9 +187,9 @@ They also require information about the ranking of customer products, but not th
 
 SQL topics relevant to the Danny’s Diner case study: Common Table Expressions, Group By Aggregates, Window Functions for ranking, Table Joins
 
-**Q1. What are the contents of each table?**
+**Q0. What are the contents of each table?**
 
-**A1.** As seen from the data, there are three menu items. There are two customers. 
+**A0.** As seen from the data, there are three products in the menu. There are two customers in the loyalty program. There are orders from those all customers.
 
 ```
 mysql> select * from menu;
@@ -212,7 +212,7 @@ mysql> select * from members;
 2 rows in set (0.00 sec)
 
 mysql> select * from sales;               
-+-------------+------------+------------+ ```
++-------------+------------+------------+
 | customer_id | order_date | product_id | 
 +-------------+------------+------------+ 
 | A           | 2021-01-01 |          1 | 
@@ -236,3 +236,46 @@ mysql> select * from sales;
 
 **Q1.**
 **A1.**
+
+
+**Q01. What is the total amount each customer spent at the restaurant?**
+
+**A01.** Here we need to figure out spend per customer. 
+
+select *
+
+**Q02. How many days has each customer visited the restaurant?**
+
+**A02.**
+
+**Q03. What was the first item from the menu purchased by each customer?**
+
+**A03.**
+
+**Q04. What is the most purchased item on the menu and how many times was it purchased by all customers?**
+
+**A04.**
+
+**Q05. Which item was the most popular for each customer?**
+
+**A05.**
+
+**Q06. Which item was purchased first by the customer after they became a member?**
+
+**A06.**
+
+**Q07. Which item was purchased just before the customer became a member?**
+
+**A08.**
+
+**Q08. What is the total items and amount spent for each member before they became a member?**
+
+**A08.**
+
+**Q09.  If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+
+**A09.**
+
+**Q10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+
+**A10.**
