@@ -198,3 +198,344 @@ mysql> select txn_id,txn_date,txn_time from transactions limit 20;
 +--------+------------+---------------------+                     
 20 rows in set (0.00 sec)                                         
 ```
+## Our Crypto Case Study
+
+### Step 1: Database Introduction
+
+For this SQL Simplified course we focus on our Cryptocurrency Trading SQL Case Study!
+
+In our fictitious (but realistic) case study - my team of trusted data mentors from the Data With Danny team have been dabbling in the crypto markets since 2017.
+
+fw:1 Who are the members of the cryptocurrency trading group?
+
+```
+mysql> select * from members;
++-----------+------------+---------------+
+| member_id | first_name | region        |
++-----------+------------+---------------+
+| c4ca42    | Danny      | Australia     |
+| c81e72    | Vipul      | United States |
+| eccbc8    | Charlie    | United States |
+| a87ff6    | Nandita    | United States |
+| e4da3b    | Rowan      | United States |
+| 167909    | Ayush      | United States |
+| 8f14e4    | Alex       | United States |
+| c9f0f8    | Abe        | United States |
+| 45c48c    | Ben        | Australia     |
+| d3d944    | Enoch      | Africa        |
+| 6512bd    | Vikram     | India         |
+| c20ad4    | Leah       | Asia          |
+| c51ce4    | Pavan      | Australia     |
+| aab323    | Sonia      | Australia     |
++-----------+------------+---------------+
+14 rows in set (0.09 sec)
+```
+
+fw: There are 14 members in DWD team.
+
+
+fw:2 how many transactions has each member done?
+
+
+1st try gave error:
+-------------------
+
+```
+mysql> select t.member_id,m.first_name, count(t.member_id) from transactions as t join members as m on t.member_i
+d=m.member_id group by m.member_id;                                                                              
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'tra
+ding.m.first_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with s
+ql_mode=only_full_group_by    
+```
+
+2nd attempt:
+------------
+
+fw: Need to figure out grouping across joins!
+
+```
+mysql> select t.member_id,m.first_name, count(t.member_id) as no_of_txn from transactions as t join members as m on t.member_id=m.member_id group by t.member_id,m.first_name order by no_of_txn desc;                           
++-----------+------------+-----------+
+| member_id | first_name | no_of_txn |
++-----------+------------+-----------+
+| c4ca42    | Danny      |      2159 |
+| c51ce4    | Pavan      |      1965 |
+| c9f0f8    | Abe        |      1847 |
+| 8f14e4    | Alex       |      1648 |
+| 45c48c    | Ben        |      1575 |
+| d3d944    | Enoch      |      1526 |
+| c81e72    | Vipul      |      1271 |
+| 167909    | Ayush      |      1264 |
+| c20ad4    | Leah       |      1239 |
+| eccbc8    | Charlie    |      1095 |
+| aab323    | Sonia      |      1082 |
+| e4da3b    | Rowan      |      1001 |
+| a87ff6    | Nandita    |       801 |
+| 6512bd    | Vikram     |       772 |
++-----------+------------+-----------+                                                                 
+14 rows in set (0.08 sec)                                                                                       
+```
+
+Our main purpose for this case study is to analyse the performance of the DWD mentors over time.
+
+### Step 2 - Exploring The Members Data
+
+**Q**
+**A**
+
+
+
+**Q01** Show only the top 5 rows from the `trading.members` table
+
+**A01**
+
+```
+mysql> select * from trading.members limit 5;
++-----------+------------+---------------+   
+| member_id | first_name | region        |   
++-----------+------------+---------------+   
+| c4ca42    | Danny      | Australia     |   
+| c81e72    | Vipul      | United States |   
+| eccbc8    | Charlie    | United States |   
+| a87ff6    | Nandita    | United States |   
+| e4da3b    | Rowan      | United States |   
++-----------+------------+---------------+   
+5 rows in set (0.38 sec)                     
+```
+
+**Q02** Sort all the rows in the table by `first_name` in alphabetical order and show the top 3 rows
+
+**A02**
+
+```
+mysql> select * from trading.members order by first_name asc limit 3;
++-----------+------------+---------------+
+| member_id | first_name | region        |
++-----------+------------+---------------+
+| c9f0f8    | Abe        | United States |
+| 8f14e4    | Alex       | United States |
+| 167909    | Ayush      | United States |
++-----------+------------+---------------+
+3 rows in set (0.00 sec)
+```
+
+**Q03** Which records from `trading.members` are from the United States region?
+
+**A03** 
+
+```
+mysql> select * from trading.members where region = 'United States';
++-----------+------------+---------------+
+| member_id | first_name | region        |
++-----------+------------+---------------+
+| c81e72    | Vipul      | United States |
+| eccbc8    | Charlie    | United States |
+| a87ff6    | Nandita    | United States |
+| e4da3b    | Rowan      | United States |
+| 167909    | Ayush      | United States |
+| 8f14e4    | Alex       | United States |
+| c9f0f8    | Abe        | United States |
++-----------+------------+---------------+
+7 rows in set (0.15 sec)
+```
+
+
+**Q04** Select only the member_id and first_name columns for members who are not from Australia
+
+**A04**
+
+```
+mysql> select member_id,first_name from trading.members where region != 'Australia';
++-----------+------------+
+| member_id | first_name |
++-----------+------------+
+| c81e72    | Vipul      |
+| eccbc8    | Charlie    |
+| a87ff6    | Nandita    |
+| e4da3b    | Rowan      |
+| 167909    | Ayush      |
+| 8f14e4    | Alex       |
+| c9f0f8    | Abe        |
+| d3d944    | Enoch      |
+| 6512bd    | Vikram     |
+| c20ad4    | Leah       |
++-----------+------------+
+10 rows in set (0.01 sec)
+```
+
+**Q05** Return the unique `region` values from the `trading.members` table and sort the output by reverse alphabetical order
+
+**A05**
+
+```
+mysql> select distinct region from trading.members order by region desc;
++---------------+
+| region        |
++---------------+
+| United States |
+| India         |
+| Australia     |
+| Asia          |
+| Africa        |
++---------------+
+5 rows in set (0.16 sec)  
+```
+
+
+**Q06** How many mentors are there from Australia or the United States?
+
+**A06** 
+
+
+```
+mysql> select count(member_id) from trading.members where region in ('Australia','United States');
++------------------+
+| count(member_id) |
++------------------+
+|               11 |
++------------------+
+1 row in set (0.04 sec)
+```
+
+**Q07** How many mentors are not from Australia or the United States?
+
+**A07**
+
+```
+mysql> select count(member_id) from trading.members where region not in ('Australia','United States'); 
++------------------+                                                                                   
+| count(member_id)          
++------------------+                                                                                   
+|                3          
++------------------+                                                                                   
+1 row in set (0.00 sec)                                                                                
+```
+
+**Q08** How many mentors are there per region? Sort the output by regions with the most mentors to the least
+
+**A08**
+
+```
+mysql> select region, count(member_id) as mentor_count from trading.members group by region order by mentor_count desc;
+
++---------------+--------------+                                                                       
+| region        | mentor_count       
++---------------+--------------+                                                                       
+| United States |            7       
+| Australia     |            4       
+| Africa        |            1       
+| India         |            1       
+| Asia          |            1       
++---------------+--------------+                                                                       
+5 rows in set (0.00 sec)                                                                                        
+
+
+```
+
+
+**Q09** How many US mentors and non US mentors are there?
+
+**A09**
+
+fw: my attempt after tryingn to understand the CASE keyword.
+
+Here error as `count(mentor_region)` is improper as the proper counting field name is `region` and `mentor_region` is just an alias.
+```
+mysql> select case when region != 'United States' then 'non-US' else region end as mentor_region,count(mentor_region) as mentor_count from members group by mentor_region;
+ERROR 1054 (42S22): Unknown column 'mentor_region' in 'field list'
+```
+
+Here the error is that we have used an aggregate function `count()` but we have not used an aggregate operator like `GROUP BY`.
+
+
+```
+mysql> select case when region <> 'United States' then 'nonUSA' else region end as mr,count(r
+egion) as mc from members;                                                                   
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contai
+ns nonaggregated column 'trading.members.region'; this is incompatible with sql_mode=only_ful
+l_group_by     
+```
+
+Here we have grouped by `region` and not by the new clustered region defined by `CASE` clause i.e. `mr`. So we get a grouping by the underlying field i.e. `region` and not by the new filtered field `mr`.
+
+```                                                                              
+mysql> select case when region <> 'United States' then 'nonUSA' else region end as mr,count(r
+egion) as mc from members group by region;                                                   
++---------------+----+                                                                       
+| mr            | mc |                                                                       
++---------------+----+                                                                       
+| nonUSA        |  4 |                                                                       
+| United States |  7 |                                                                       
+| nonUSA        |  1 |                                                                       
+| nonUSA        |  1 |                                                                       
+| nonUSA        |  1 |                                                                       
++---------------+----+                                                                       
+5 rows in set (0.00 sec)                                                                     
+```
+
+Now is the proper result. Here we have properly grouped by the filtered `CASE` result & 
+
+```
+mysql> select case when region != 'United States' then 'non-US' else region end as mentor_region,count(region) as mentor_count from members group by mentor_region;
++---------------+--------------+
+| mentor_region | mentor_count |
++---------------+--------------+
+| non-US        |            7 |
+| United States |            7 |
++---------------+--------------+
+2 rows in set (0.10 sec)
+
+mysql>
+
+```
+**Official Answer**
+```
+SELECT
+  CASE
+    WHEN region != 'United States' THEN 'Non US'
+    ELSE region
+  END AS mentor_region,
+  COUNT(*) AS mentor_count
+FROM trading.members
+GROUP BY mentor_region
+ORDER BY mentor_count DESC;
+
+```
+
+**Q10** How many mentors have a first name starting with a letter before 'E'
+
+**A10**
+```
+mysql> select count(first_name) from trading.members where first_name < 'E';
++-------------------+
+| count(first_name) |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0.00 sec)
+```
+
+Official Answer:
+
+```
+SELECT COUNT(*) AS mentor_count
+FROM trading.members
+WHERE LEFT(first_name, 1) < 'E';
+```
+
+**Q**
+
+**A**
+
+
+**Appendix**
+
+* In practice, use `SELECT *` sparingly!
+
+* `LIMIT` is implemented as `TOP` in some database flavours.
+
+* In BigQuery using `LIMIT` on a large database will not avoid high bill as BQ scans the total number of rows first and then limits the data with `LIMIT`!
+
+* Best practice is to always apply WHERE filters on specific partitions to narrow down the amount of data that must be scanned - reducing your query costs and speeding up your query execution!
+
+* `!=` or `<>` for "not equals" You might have noticed in questions 4 and 9 there are two different methods for showing "not equals" You can use both `!=` or `<>` in WHERE filters to exclude records.
